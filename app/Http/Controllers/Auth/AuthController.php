@@ -16,7 +16,7 @@ class AuthController extends Controller
         $this->validate($request,[
             'name' => 'required|max:200',
             'email'=>'required|email|max:255|unique:users',
-            'cell' => 'required|min:8',
+            'cell' => 'required|min:6',
             'password'=>'required|min:6'
             
         ]);
@@ -38,7 +38,7 @@ class AuthController extends Controller
     public function login (loginRequest $request){
         $credentials = $request->only('email','password');
         try{
-            if($token = JWTAuth::attempt($credentials)){
+            if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json([
                     'Credenciales invalidas'
                 ],400);
@@ -49,7 +49,8 @@ class AuthController extends Controller
                 'error' => $error,
             ],500);
         }
-        response()->json([compact('token')]);
+        return response()->json([
+            'token' => $token
+        ]);
     }
-
 }
