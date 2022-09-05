@@ -37,7 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\Cors::class,
-            'jwtVerify' => JHTAuthuser::class
+            \App\Http\Middleware\JHTAuthuser::class
         ],
 
         'api' => [
@@ -66,6 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\Cors::class,
-        'jwtVerify' => JHTAuthuser::class
+        'jwtVerify' =>\App\Http\Middleware\JHTAuthuser::class
     ];
 }
