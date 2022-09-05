@@ -49,8 +49,10 @@ class AuthController extends Controller
                 'error' => $error,
             ],500);
         }
+        $user = User::where('email',$request->email)->get();
         return response()->json([
-            'token' => $token
+            'token' => $token,
+            'user' => $user
         ]);
     }
 }
