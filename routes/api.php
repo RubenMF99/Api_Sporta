@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('users',[UserController::class,'index'])->middleware('jwtVerify');
+Route::post('users',[UserController::class,'deleteUser'])->middleware('jwtVerify');
 Route::group([
     'middleware' => ['api','cors'],
 ],function($router){

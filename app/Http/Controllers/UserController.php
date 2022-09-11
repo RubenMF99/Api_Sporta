@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Js;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -20,7 +20,22 @@ class UserController extends Controller
             'users'=>$user
         ],200);
     }
-
+    public function deleteUser(Request $request)
+    {
+       $exist = DB::table('users')->where('id', $request->id)->first();
+ 
+       if(!$exist){
+           return response()->json([
+               'msg'=>"the User Not existed"
+           ],404);
+       }
+       
+       $userDelete = User::destroy($request->id);
+       return response()->json([
+           'msg'=> 'User delete',
+           'user'=> $userDelete 
+       ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
