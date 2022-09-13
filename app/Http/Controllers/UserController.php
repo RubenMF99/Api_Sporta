@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
@@ -20,6 +20,27 @@ class UserController extends Controller
             'users'=>$user
         ],200);
     }
+
+    public function updateUser(Request $request)
+     {
+        $exist = DB::table('users')->where('id', $request->id)->first();
+  
+        if(!$exist){
+            return response()->json([
+                'msg'=>"the User Not existed"
+            ],404);
+        }
+
+            $usersUp = User::findOrFail($request->id);
+            $usersUp->name = $request->name;
+            $usersUp->email = $request->email;
+            $usersUp->cell = $request->cell;
+            $usersUp->save();
+        return response()->json([
+            "Users" => $usersUp
+        ]);
+     }
+
     public function deleteUser(Request $request)
     {
        $exist = DB::table('users')->where('id', $request->id)->first();
