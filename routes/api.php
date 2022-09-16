@@ -28,4 +28,5 @@ Route::group([
 ],function($router){
     Route::post('login',[AuthController::class,'login'])->name('login');
     Route::post('register',[AuthController::class,'register']);
+    Route::get('logout',[AuthController::class,'logout']);
 });

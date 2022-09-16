@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\loginRequest;
 use App\Models\User;
@@ -54,5 +53,12 @@ class AuthController extends Controller
             'token' => $token,
             'user' => $user
         ]);
+    }
+    public function logout (){
+        auth()->logout();
+        auth()->logout(true);
+        return response()->json([
+            'logout succesfull'
+        ],200);
     }
 }
